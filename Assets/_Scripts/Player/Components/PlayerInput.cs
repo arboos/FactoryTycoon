@@ -8,8 +8,7 @@ public class PlayerInput : MonoBehaviour
     public static PlayerInput Instance { get; private set; }
     
     [SerializeField] private FloatingJoystick _joystick;
-
-
+    
     public float Horizontal;
     public float Vertical;
 
