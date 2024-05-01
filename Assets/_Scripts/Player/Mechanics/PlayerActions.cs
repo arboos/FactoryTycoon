@@ -7,9 +7,13 @@ public class PlayerActions : MonoBehaviour
 {
     public static PlayerActions Instance { get; private set; }
 
-    public ResourceData CurrentResource;
+    public ResourceBehaviour CurrentResource;
+
+
+    [SerializeField] private int Damage;
+    [SerializeField] private float timeToHit;
     
-    private float timeToHit;
+    private float currentTimeToHit;
     
     private void Awake()
     {
@@ -32,13 +36,11 @@ public class PlayerActions : MonoBehaviour
 
     public void Extract()
     {
-        timeToHit -= Time.deltaTime;
-        if (timeToHit <= 0)
+        currentTimeToHit -= Time.deltaTime;
+        if (currentTimeToHit <= 0)
         {
-            switch (CurrentResource.Type)
-            {
-                Pl
-            }
+            currentTimeToHit = timeToHit;
+            CurrentResource.TakeDamage(Damage);
         }
     }
 }

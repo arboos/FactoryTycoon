@@ -22,22 +22,22 @@ public class PlayerAnimations : MonoBehaviour
         
         if ((_horizontal >= 0.1f || _horizontal <= -0.1f) || (_vertical >= 0.1f || _vertical <= -0.1f))
         {
-            _animator.SetBool("isRunning", true);
+            SetAbsoluteBool("isRunning", true);
         }
         else
         {
             if (PlayerActions.Instance.CurrentResource != null)
             {
-                switch (PlayerActions.Instance.CurrentResource.Type)
+                switch (PlayerActions.Instance.CurrentResource.resource.Type)
                 {
-                    case ResourceType.Tree:
+                    case ResourceType.Wood:
                         SetAbsoluteBool("isAxing", true);
                         break;
                 }
             }
             else
             {
-                _animator.SetBool("isRunning", false);
+                SetAbsoluteBool("isRunning", false);
             }
         }
     }
