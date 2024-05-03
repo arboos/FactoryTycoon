@@ -14,13 +14,14 @@ public class ResourceMetal : ResourceBehaviour
         partsCount = parts.Length - 1;
     }
     
-    public void TakeDamage(int damage)
+    public override void TakeDamage(int damage)
     {
         ResourceHealth -= damage;
         damageDealed -= damage;
         particles.Play();
         
         PlayerInventory.Instance.AddResource(resource, ResourceExtractionValue);
+        
         if (damageDealed <= 0)
         {
             damageDealed = partHP;

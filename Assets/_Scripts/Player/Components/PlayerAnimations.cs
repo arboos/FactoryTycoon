@@ -20,6 +20,8 @@ public class PlayerAnimations : MonoBehaviour
         _horizontal = PlayerInput.Instance.Horizontal;
         _vertical = PlayerInput.Instance.Vertical;
         
+        PlayerCollection.Instance.DisableTools();
+        
         if ((_horizontal >= 0.1f || _horizontal <= -0.1f) || (_vertical >= 0.1f || _vertical <= -0.1f))
         {
             SetAbsoluteBool("isRunning", true);
@@ -32,6 +34,7 @@ public class PlayerAnimations : MonoBehaviour
                 {
                     case ResourceType.Wood:
                         SetAbsoluteBool("isAxing", true);
+                        PlayerCollection.Instance.Axe.SetActive(true);
                         break;
                 }
             }

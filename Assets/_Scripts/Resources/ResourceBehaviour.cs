@@ -11,14 +11,14 @@ public class ResourceBehaviour : MonoBehaviour
     [SerializeField] protected int ResourceExtractionValue;
     [SerializeField] protected int ResourceFullExtractionValue;
     
-
     [SerializeField] protected ParticleSystem particles;
     [SerializeField] protected AudioSource sound;
 
     protected int partsCount;
     protected int damageDealed;
 
-
+    public Transform selfPoint;
+    public ResourceSpawner selfSpawner;
 
     public virtual void TakeDamage(int damage)
     {

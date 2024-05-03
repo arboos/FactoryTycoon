@@ -17,6 +17,12 @@ public class PlayerCollection : MonoBehaviour
             Instance = this;
         }
     }
+
+    public void DisableTools()
+    {
+        Axe.SetActive(false);
+        Pickaxe.SetActive(false);
+    }
     
     
 }

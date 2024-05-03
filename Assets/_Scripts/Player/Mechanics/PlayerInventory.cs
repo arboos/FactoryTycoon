@@ -66,5 +66,5 @@ public class PlayerInventory : MonoBehaviour
 public enum ResourceType
 {
     Wood,
-    Iron
+    Metal
 }

@@ -17,11 +17,8 @@ public class ResourceTree : ResourceBehaviour
         ResourceHealth -= damage;
         damageDealed -= damage;
         
-        PlayerInventory.Instance.AddResource(resource, ResourceExtractionValue);
-        
         if (ResourceHealth <= 0)
         {
-            PlayerInventory.Instance.AddResource(resource, ResourceFullExtractionValue);
             PlayerActions.Instance.CurrentResource = null;
             
             StartCoroutine(Death());
@@ -37,12 +34,16 @@ public class ResourceTree : ResourceBehaviour
     {
         yield return new WaitForSeconds(0.6f);
         _animator.SetTrigger("Hit");
+        PlayerInventory.Instance.AddResource(resource, ResourceExtractionValue);
     }
     
     private IEnumerator Death()
     {
+        selfSpawner.points.Add(selfPoint);
+        selfSpawner.usedPoints.Remove(selfPoint);
         _animator.SetTrigger("Die");
         yield return new WaitForSeconds(0.8f);
+        PlayerInventory.Instance.AddResource(resource, ResourceFullExtractionValue);
         Destroy(gameObject);
 
     }
