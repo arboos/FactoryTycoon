@@ -20,22 +20,42 @@ public class ResourceMetal : ResourceBehaviour
         damageDealed -= damage;
         particles.Play();
         
-        PlayerInventory.Instance.AddResource(resource, ResourceExtractionValue);
-        
-        if (damageDealed <= 0)
-        {
-            damageDealed = partHP;
-            parts[partsCount].SetActive(false);
-            partsCount--;
-        }
-
         if (ResourceHealth <= 0)
         {
-            PlayerInventory.Instance.AddResource(resource, ResourceFullExtractionValue);
-            PlayerActions.Instance.CurrentResource = null;
-            Destroy(gameObject);
+            StartCoroutine(Death());
+        }
+        else
+        {
+            if (damageDealed <= 0)
+            {
+                damageDealed = partHP;
+                parts[partsCount].SetActive(false);
+                partsCount--;
+            }
+
+            StartCoroutine(AfterHit());
         }
         
         print("Metal");
+    }
+    
+    private IEnumerator AfterHit()
+    {
+        yield return new WaitForSeconds(0.05f);
+        
+        PlayerInventory.Instance.AddResource(resource, ResourceExtractionValue);
+    }
+    
+    private IEnumerator Death()
+    {
+        selfSpawner.points.Add(selfPoint);
+        selfSpawner.usedPoints.Remove(selfPoint);
+        PlayerInventory.Instance.AddResource(resource, ResourceFullExtractionValue);
+        
+        yield return new WaitForSeconds(0.8f);
+
+        selfSpawner.SpawnResource(10f);
+        Destroy(gameObject);
+
     }
 }

@@ -28,7 +28,6 @@ public class ResourceTree : ResourceBehaviour
         {
             StartCoroutine(AfterHit());
         }
-        print("Tree");
     }
 
     private IEnumerator AfterHit()

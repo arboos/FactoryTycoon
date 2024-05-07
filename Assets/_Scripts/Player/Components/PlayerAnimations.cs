@@ -37,6 +37,11 @@ public class PlayerAnimations : MonoBehaviour
                         SetAbsoluteBool("isAxing", true);
                         PlayerCollection.Instance.Axe.SetActive(true);
                         break;
+                    
+                    case ResourceType.Metal:
+                        SetAbsoluteBool("isMining", true);
+                        PlayerCollection.Instance.Pickaxe.SetActive(true);
+                        break;
                 }
             }
             else
@@ -50,6 +55,7 @@ public class PlayerAnimations : MonoBehaviour
     {
         _animator.SetBool("isRunning", false);
         _animator.SetBool("isAxing", false);
+        _animator.SetBool("isMining", false);
         _animator.SetBool(name, value);
     }
 }
