@@ -7,9 +7,10 @@ public class ResourceTree : ResourceBehaviour
 {
     private Animator _animator;
 
-    private void Start()
+    private void Awake()
     {
         _animator = GetComponent<Animator>();
+        sound = GameObject.Find("Audio_Tree").GetComponent<AudioSource>();
     }
 
     public override void TakeDamage(int damage)
@@ -32,7 +33,8 @@ public class ResourceTree : ResourceBehaviour
 
     private IEnumerator AfterHit()
     {
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.5f);
+        
         _animator.SetTrigger("Hit");
         PlayerInventory.Instance.AddResource(resource, ResourceExtractionValue);
     }
@@ -42,8 +44,11 @@ public class ResourceTree : ResourceBehaviour
         selfSpawner.points.Add(selfPoint);
         selfSpawner.usedPoints.Remove(selfPoint);
         _animator.SetTrigger("Die");
-        yield return new WaitForSeconds(0.8f);
         PlayerInventory.Instance.AddResource(resource, ResourceFullExtractionValue);
+        
+        yield return new WaitForSeconds(0.8f);
+
+        selfSpawner.SpawnResource(10f);
         Destroy(gameObject);
 
     }

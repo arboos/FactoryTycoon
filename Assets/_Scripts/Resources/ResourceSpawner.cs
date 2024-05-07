@@ -25,6 +25,7 @@ public class ResourceSpawner : MonoBehaviour
         {
             points.Add(transform.GetChild(i));
         }
+
         SpawnResource();
         SpawnResource();
         SpawnResource();
@@ -33,19 +34,44 @@ public class ResourceSpawner : MonoBehaviour
     public void SpawnResource()
     {
         GameObject resourceSpawned = Instantiate(prefab);
+        ResourceBehaviour resourceBehaviour = resourceSpawned.transform.GetChild(0).GetComponent<ResourceBehaviour>();
+        
+        resourceSpawned.transform.parent = parent;
         Transform positionPoint = GetRandomPoint();
         resourceSpawned.transform.position = positionPoint.position;
-        resourceSpawned.GetComponent<ResourceBehaviour>().selfPoint = positionPoint;
-        resourceSpawned.GetComponent<ResourceBehaviour>().selfSpawner = this;
-        resourceSpawned.transform.parent = parent;
+        
+        resourceBehaviour.selfPoint = positionPoint;
+        resourceBehaviour.selfSpawner = this;
     }
 
+    public void SpawnResource(float time)
+    {
+        StartCoroutine(SpawnResourceIEnumerator(time));
+    }
+
+    //Для спавна с задержкой чтобы не засорять Update
+    public IEnumerator SpawnResourceIEnumerator(float time)
+    {
+        yield return new WaitForSeconds(time);
+        
+        GameObject resourceSpawned = Instantiate(prefab);
+        ResourceBehaviour resourceBehaviour = resourceSpawned.transform.GetChild(0).GetComponent<ResourceBehaviour>();
+        
+        resourceSpawned.transform.parent = parent;
+        Transform positionPoint = GetRandomPoint();
+        resourceSpawned.transform.position = positionPoint.position;
+        
+        resourceBehaviour.selfPoint = positionPoint;
+        resourceBehaviour.selfSpawner = this;
+    }
+    
     private Transform GetRandomPoint()
     {
         int randomIndex = Random.Range(0, points.Count);
         Transform returnedPoint =  points[randomIndex];
         usedPoints.Add(returnedPoint);
         points.Remove(returnedPoint);
+        print(returnedPoint.name);
         return returnedPoint;
     }
     

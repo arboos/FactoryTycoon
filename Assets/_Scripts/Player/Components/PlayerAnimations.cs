@@ -30,6 +30,7 @@ public class PlayerAnimations : MonoBehaviour
         {
             if (PlayerActions.Instance.CurrentResource != null)
             {
+                transform.LookAt(PlayerActions.Instance.CurrentResource.transform);
                 switch (PlayerActions.Instance.CurrentResource.resource.Type)
                 {
                     case ResourceType.Wood:
